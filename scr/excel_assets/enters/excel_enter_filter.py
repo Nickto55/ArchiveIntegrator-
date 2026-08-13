@@ -25,10 +25,8 @@ class ExcelDataInserter:
         Вставляет данные в новый лист Excel-файла.
 
         :param data: Вложенный словарь с данными (ваша структура)
-        :param sheet_name: Название нового листа
-                           (если существует — будет удалён и создан заново)
-        :param headers: Список заголовков столбцов (опционально,
-                        извлекаются автоматически из данных)
+        :param sheet_name: Название нового листа (если существует — будет удалён и создан заново)
+        :param headers: Список заголовков столбцов (опционально, извлекаются автоматически из данных)
         :return: Путь к сохранённому файлу
         """
 
@@ -52,13 +50,12 @@ class ExcelDataInserter:
             header_filter = header
             cell = ws.cell(row=1, column=col_idx, value=header)
             if header == '  back  ':
-                cell.fill =  PatternFill(start_color="f15263", fill_type="solid")
+                cell.fill = PatternFill(start_color="f15263", fill_type="solid")
                 cell.font = Font(color="f2ecde")
                 cell.hyperlink = f"#'{'All programs'}'!A1"
                 continue
             cell.fill = self.fill_color1
             cell.font = Font(color="f2ecde")
-
 
         try:
             ws.auto_filter.ref = f"A1:{get_column_letter(len(header_filter))}1"

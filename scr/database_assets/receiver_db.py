@@ -6,13 +6,13 @@ from static.db import db_program
 
 
 class ReceiverDataBase:
-    def __init__(self):
+    def __init__(self, name_file_db=None):
         """
         Обработчик базы данных
         """
         self.name_programm_config_dir = ".ArchiveIntegrator"
         self.name_work_dir= 'configs'
-        self.name_work_file = 'database.json'
+        self.name_work_file = name_file_db if not name_file_db is None else 'database.json'
 
         self.CONFIG_DIR = os.path.join(os.path.expanduser("~"), os.path.join(self.name_work_dir, self.name_programm_config_dir))
         self.file_path = os.path.join(self.CONFIG_DIR, self.name_work_file)

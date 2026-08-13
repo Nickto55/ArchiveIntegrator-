@@ -1,5 +1,5 @@
-import json
 import os
+import json
 import shutil
 
 from static.config import configProgram
@@ -95,7 +95,6 @@ class ReceiverConfig:
                     return template, True
 
             return current, changes_made
-
 
         original_data = json.dumps(self.data, sort_keys=True)
 

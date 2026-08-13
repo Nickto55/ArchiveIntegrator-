@@ -19,6 +19,6 @@ def get_git_remote_url_gitpython(local_path):
 # Пример использования:
 path_dir = r'C:\Users\yakovlev_nd\PycharmProjects\ArchiveIntegrator-'
 print(path_dir)
-repo_path = path_dir # Укажите ваш путь
+repo_path = path_dir  # Укажите ваш путь
 url = get_git_remote_url_gitpython(repo_path)
 print(f"URL репозитория: {url}")

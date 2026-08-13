@@ -1,21 +1,20 @@
-import sys
 import os
-import pandas as pd
+import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from scr.config_assets.handling_config.handler_program_config import ConfigMainProgram
-from scr.config_assets.handling_config.handler_archive_integrator import ConfigArchiveIntegrator
-from scr.handling.archive_table.generated_list_program import GeneratedListArchive
 from scr.handling.archive_table.list_all import HandlerMainSheet
 from scr.excel_assets.enters.excel_enter_filter import ExcelDataInserter
+from scr.handling.archive_table.generated_list_program import GeneratedListArchive
+from scr.config_assets.handling_config.handler_program_config import ConfigMainProgram
+from scr.config_assets.handling_config.handler_archive_integrator import ConfigArchiveIntegrator
 
 
 class MainHandlerArchiveTabel:
     def __init__(self):
-        self.config_program = ConfigMainProgram()
-        self.data_main_list_table = {}
         self.path_to_tabel = None
+        self.data_main_list_table = {}
+        self.config_program = ConfigMainProgram()
 
     def main(self, path_to_tabel):
         self.path_to_tabel = path_to_tabel

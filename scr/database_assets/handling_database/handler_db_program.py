@@ -23,9 +23,9 @@ class DataBaseProgramData:
             self.data_base.save()
             self.data_base.load()
 
-    def get_program_data(self, program_name):
+    def get_program_data(self, repository_name):
         self.data_base.load()
-        return self.data_base.data[self.name_dict].get(program_name, '')
+        return self.data_base.data[self.name_dict].get(repository_name, '')
 
     def set_program_db(
             self
@@ -70,11 +70,3 @@ class DataBaseProgramData:
 
 if __name__ == "__main__":
     app = DataBaseProgramData()
-    # app.set_program_db(
-    #     program_name='dskljoyitest'
-    #     , url_git='asdadda'
-    #     , comment='guydagyudGYUGYDAGYDSAGYUDSAAGY'
-    #     , last_version='v123.1.34'
-    # )
-
-    # print(app.get_program_data(program_name='dskljtest'))

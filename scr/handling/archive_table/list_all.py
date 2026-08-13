@@ -1,6 +1,6 @@
 import os
-import git
 import sys
+import git
 from sys import version_info
 
 import pandas as pd
@@ -9,10 +9,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 
 from scr.excel_assets.readers.excel_reader import ExcelReader
 from scr.config_assets.handling_config.handler_program_config import ConfigMainProgram
-from scr.config_assets.handling_config.handler_archive_integrator import ConfigArchiveIntegrator
 from scr.database_assets.handling_database.handler_db_program import DataBaseProgramData
-
-
+from scr.config_assets.handling_config.handler_archive_integrator import ConfigArchiveIntegrator
 
 
 def get_git_remote_url_gitpython(local_path):
@@ -41,7 +39,6 @@ class HandlerMainSheet:
         self.generated_list_program()
 
         return self.generete_sheet()
-
 
     def get_data_main_list(self):
         self.load_main_list()
@@ -81,7 +78,7 @@ class HandlerMainSheet:
                 , last_version=version_program
                 , url_git=url
                 , target=target
-                ,date_relise=date_relise
+                , date_relise=date_relise
             )
 
     def generete_sheet(self):
@@ -98,7 +95,7 @@ class HandlerMainSheet:
                 , 'Ссылка на репо.': row_db.get('url git', '')
                 , 'Ком.': row_db.get('comment', '')
             }
-            data_return[len(data_return)]=row_return
+            data_return[len(data_return)] = row_return
 
         # for udfj, bjhdsf in data_return.items():
         #     print(f'{udfj:<40}')

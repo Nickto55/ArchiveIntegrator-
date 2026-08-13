@@ -202,7 +202,6 @@ class ExcelReader:
                     last_error = e
                     continue
 
-
         if workbook is None:
             try:
                 workbook = xlrd.open_workbook(path)
@@ -247,7 +246,6 @@ class ExcelReader:
                 row_data.append(val)
             data.append(row_data)
 
-
         if effective_header is not None and effective_header < len(data):
             headers = data[effective_header]
             for i, h in enumerate(headers):
@@ -269,7 +267,6 @@ class ExcelReader:
 
         """Загружает .xlsx через openpyxl/pandas."""
         return self._load_xlsx_with_colors(path, sheet)
-
 
     def _load_xlsx_with_colors(self, path: str, sheet: Optional[Union[str, int]]) -> pd.DataFrame:
         """Загружает данные и собирает цвета всех ячеек."""
