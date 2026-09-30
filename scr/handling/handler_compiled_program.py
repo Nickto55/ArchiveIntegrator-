@@ -24,7 +24,6 @@ class CompiledProgramHandler:
             'path to project dir'
             , ''
         )
-
         self.last_time_update_file = 0.0
         self.name_archived_file = None
 
@@ -42,11 +41,18 @@ class CompiledProgramHandler:
         else:
             data_programm_time = {}
             list_path_dir_in_basic_dir_project = []
+
             for name_preositories in [repo for repo in os.listdir(self.path_to_basic_dir_project)]:
                 if os.path.isdir(os.path.join(self.path_to_basic_dir_project, name_preositories)):
                     list_path_dir_in_basic_dir_project.append(
-                        os.path.join(self.path_to_basic_dir_project, name_preositories))
+                        os.path.join(
+                            self.path_to_basic_dir_project
+                            , name_preositories
+                        )
+                    )
+
             if len(list_path_dir_in_basic_dir_project) == 0: return None
+
             for repo_name in os.listdir(self.path_to_basic_dir_project):
                 path_to_repo = os.path.join(self.path_to_basic_dir_project, repo_name)
                 if os.path.isdir(path_to_repo):
@@ -59,13 +65,16 @@ class CompiledProgramHandler:
 
             max_change_time = max(data_programm_time.keys())
             program_path = os.path.join(self.path_to_basic_dir_project, data_programm_time.get(max_change_time, ''))
+
             if not 'dist' in os.listdir(program_path):
-                print('Нет папки dist ')
+                print('Нет папки dist.')
                 return None
+
             program_path = os.path.join(program_path, 'dist')
             list_data = os.listdir(program_path)
 
         data_programm_time_finish_file = {}
+
         for name_file in list_data:
             if Path(name_file).suffix[1:] in ['exe']:
                 path_to_file = os.path.join(program_path, name_file)
@@ -75,42 +84,54 @@ class CompiledProgramHandler:
                         directory_change_time: name_file
                     }
                 )
+
         max_change_time = max(data_programm_time_finish_file.keys())
         return_path = os.path.join(program_path, data_programm_time_finish_file.get(max_change_time, ''))
 
         self.last_time_update_file = max_change_time
         return return_path
 
-    def main(self, program_path=None, name_repo=None):
+    def main(self, program_path, name_repo=None, version=None):
         name_repo = os.path.basename(program_path) if name_repo is None else name_repo
         program_path = self.file_search_engine(program_path=program_path)
+
         if program_path is None: return
 
         archivator_zip = ArchivingProcessHandlerZIP(program_path)
         self.name_archived_file = archivator_zip.main()
 
-        self.archive_packaging(name_repo)
+        self.archive_packaging(name_repo, version=version)
 
-    def archive_packaging(self, repository_name):
+    def archive_packaging(self, repository_name, version=None):
         data = self.handler_developer_database.get_all_db_program()
-        print(repository_name)
+
+        if version is None or version == data[repository_name].get('last version', ''):
+            version = str(data[repository_name].get('last version', ''))[1:]
+            list_version = version.split('.')
+
+            try:
+                list_version[-1] = str(int(list_version[-1]) + 1)
+            except:
+                list_version[-1] = str(list_version[-1]) + '-beta.1'
+            finally:
+                version = 'v'
+                for num in list_version:
+                    version += f'{num}.'
+                version = version[:-1]
 
         if not repository_name in data.keys():
-            print(f'handler_compiled_program. В базе данных нет {repository_name}')
+            print(f'handler_compiled_program. В базе данных нет: {repository_name}')
             return
         if self.name_archived_file is None:
-            print(f'handler_compiled_program. self.name_archived_file is None {self.name_archived_file}')
+            print(f'handler_compiled_program. self.name_archived_file is None: {self.name_archived_file}')
             return
 
         program_name = data[repository_name].get('name', '')
 
-        version = data[repository_name].get('last version', '')
-
         try:
             Path(version).mkdir(parents=True, exist_ok=True)
         except Exception as error_:
-            print(f'handler_compiled_program, archive_packaging. Ошибка при создании папки версии')
-            print(f'{error_}')
+            print(f'handler_compiled_program, archive_packaging. Ошибка при создании папки версии:\n{error_}')
             return
 
         handler_file_thansfer = FileTransfer()
@@ -118,8 +139,7 @@ class CompiledProgramHandler:
         try:
             handler_file_thansfer.transfer(self.name_archived_file, version)
         except Exception as error_:
-            print(f'handler_compiled_program, archive_packaging. Ошибка при переноса архива в папку версии')
-            print(f'{error_}')
+            print(f'handler_compiled_program, archive_packaging. Ошибка при переноса архива в папку версии:\n{error_}')
             return
 
         path_to_archive = self.config_archive_integrator.get_all_config_program().get('path to archive', '')
@@ -131,16 +151,13 @@ class CompiledProgramHandler:
             try:
                 Path(str(path_to_archive_dir)).mkdir(parents=True, exist_ok=True)
             except Exception as error_:
-                print('Ошибка при создании')
-                print(error_)
+                print(f'Ошибка при создании\n{error_}')
                 return
 
-        handler_file_thansfer.transfer(version, path_to_archive_dir)
         try:
             handler_file_thansfer.transfer(version, path_to_archive_dir)
         except Exception as error_:
-            print(f'Ошибка при переносе zip файла в архив')
-            print(error_)
+            print(f'Ошибка при переносе zip файла в архив.\n{error_}')
             return
 
         print(f'Успешно перенесено в архив')
@@ -148,4 +165,4 @@ class CompiledProgramHandler:
 
 if __name__ == '__main__':
     app = CompiledProgramHandler()
-    app.main(r"C:\Users\yakovlev_nd\PycharmProjects\ManagerBAM")
+    app.main(r"C:\Users\yakovlev_nd\PycharmProjects\DataAggregato")

@@ -1,9 +1,10 @@
 import os
 import sys
 import git
-from sys import version_info
 
 import pandas as pd
+
+from sys import version_info
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
@@ -57,6 +58,7 @@ class HandlerMainSheet:
             name_repo = os.path.basename(row.get('Ком', '')).replace('.git', '')
             if pd.isna(name_repo) or name_repo == '':
                 name_repo = row.get('Наим. Репо.', '')
+
             try:
                 url = get_git_remote_url_gitpython(
                     os.path.join(self.config_archive_integrator.get_all_config_program().get('path to project dir', ''),
@@ -87,20 +89,16 @@ class HandlerMainSheet:
 
         for num_row_db, row_db in data_db.items():
             row_return = {
-                'Название программы': row_db.get('name', '')
-                , 'Наим. Репо.': row_db.get('name repo', '')
-                , 'Версия': row_db.get('last version', '')
-                , 'Дата разработки': row_db.get('date relise', '')
-                , 'Цель выполнения программы': row_db.get('target', '')
-                , 'Ссылка на репо.': row_db.get('url git', '')
-                , 'Ком.': row_db.get('comment', '')
+                'Название программы'            : row_db.get('name', '')
+                , 'Наим. Репо.'                 : row_db.get('name repo', '')
+                , 'Версия'                      : row_db.get('last version', '')
+                , 'Дата разработки'             : row_db.get('date relise', '')
+                , 'Цель выполнения программы'   : row_db.get('target', '')
+                , 'Ссылка на репо.'             : row_db.get('url git', '')
+                , 'Ком.'                        : row_db.get('comment', '')
             }
             data_return[len(data_return)] = row_return
 
-        # for udfj, bjhdsf in data_return.items():
-        #     print(f'{udfj:<40}')
-        #     for jsdfl, hjkdsfsd in bjhdsf.items():
-        #         print(f'{'':<40}{jsdfl:<40}{hjkdsfsd}')
         return data_return
 
 

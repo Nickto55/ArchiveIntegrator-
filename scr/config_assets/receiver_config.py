@@ -4,7 +4,6 @@ import shutil
 
 from static.config import configProgram
 
-
 class ReceiverConfig:
     def __init__(self):
         """
@@ -31,8 +30,10 @@ class ReceiverConfig:
             if self.name_programm_config_dir in os.listdir(
                     os.path.expanduser("~")) and not self.name_programm_config_dir in os.listdir(
                 os.path.join(os.path.expanduser("~"), 'configs')):
-                shutil.copytree(os.path.join(os.path.expanduser("~"), self.name_programm_config_dir),
-                                os.path.dirname(self.file_path))
+                shutil.copytree(
+                    os.path.join(os.path.expanduser("~"), self.name_programm_config_dir)
+                    , os.path.dirname(self.file_path)
+                )
         except:
             pass
 
@@ -65,7 +66,6 @@ class ReceiverConfig:
 
             if isinstance(template, dict):
                 if not isinstance(current, dict):
-                    # Если текущее значение не словарь, заменяем его полностью
                     print(f"Recovery: replacing non-dict at '{path}' with template dict")
                     return template, True
 

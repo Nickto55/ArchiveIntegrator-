@@ -13,10 +13,11 @@ class ArchivingProcessHandlerZIP:
 
     def main(self, name_archived_file=None, path_to_the_archived_path=None):
         """
-        :param name_archived_file: Имя которое присвоится к архиву
+        :param name_archived_file       : Имя которое присвоится к архиву
         :param path_to_the_archived_path: Путь к новому файлу для архивации
         :return:
         """
+
         if not path_to_the_archived_path is None:
             self.path_to_the_archived_path = path_to_the_archived_path
             self.name_archived_file = f'{os.path.basename(path_to_the_archived_path)}.zip'
@@ -40,5 +41,4 @@ if __name__ == '__main__':
     app = ArchivingProcessHandlerZIP(
         path_to_the_archived_path=r"C:\Users\yakovlev_nd\Desktop\Tests\ArchiveIntegrator\GoodMorning.exe"
     )
-    app.main()
     app.main()

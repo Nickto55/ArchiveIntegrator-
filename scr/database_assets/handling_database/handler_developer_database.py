@@ -34,13 +34,11 @@ class DeveloperDatabase:
             , git_url=None
     ):
         """
-
-        :param name_repo:
-        :param name_program:
-        :param date_change:
-        :param last_version:
-        :param git_url:
-        :return:
+        :param name_repo    :
+        :param name_program :
+        :param date_change  :
+        :param last_version :
+        :param git_url      :
         """
         if name_repo in self.data_base.data[self.name_dict].keys():
 

@@ -1,10 +1,9 @@
-import sys
 import os
+import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from CTkMessagebox import CTkMessagebox
-
 from scr.database_assets.receiver_db import ReceiverDataBase
 
 
@@ -38,12 +37,14 @@ class DataBaseProgramData:
             , date_relise=''
     ):
         if name_repo in self.data_base.data[self.name_dict].keys():
+
             bd_url = self.data_base.data[self.name_dict][name_repo].get('url git', '')
             bd_version = self.data_base.data[self.name_dict][name_repo].get('last version', '')
             bd_comment = self.data_base.data[self.name_dict][name_repo].get('comment', '')
             bd_name = self.data_base.data[self.name_dict][name_repo].get('name', '')
             bd_target = self.data_base.data[self.name_dict][name_repo].get('target', '')
             bd_date_relise = self.data_base.data[self.name_dict][name_repo].get('date relise', '')
+
             if url_git == '' and bd_url != '': url_git = bd_url
             if last_version == '' and bd_version != '': last_version = bd_version
             if comment == '' and bd_comment != '': comment = bd_comment

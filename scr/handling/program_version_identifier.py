@@ -7,9 +7,9 @@ from scr.config_assets.handling_config.handler_archive_integrator import ConfigA
 
 class ProgramVersionIdentifier:
     def __init__(self):
-        self.config_archive_integrator = ConfigArchiveIntegrator()
-        self.handler_developer_database = DeveloperDatabase()
         self.handler_database_program = DataBaseProgramData()
+        self.handler_developer_database = DeveloperDatabase()
+        self.config_archive_integrator = ConfigArchiveIntegrator()
 
         self.path_to_archive = self.config_archive_integrator.get_all_config_program().get('path to archive', '')
 
@@ -44,7 +44,6 @@ class ProgramVersionIdentifier:
         return data_time_create_arhive_version
 
     def update_database(self, data):
-
         for name_repo, row in data.items():
             for version, date_change_set in row.items():
                 if len(list(date_change_set)) > 0:

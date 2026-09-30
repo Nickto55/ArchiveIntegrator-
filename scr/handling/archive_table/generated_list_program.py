@@ -17,7 +17,8 @@ class GeneratedListArchive:
 
         self.db_program_data = DataBaseProgramData()
 
-        self.config_archive_integrator = config_archive_integrator if not pd.isna(config_archive_integrator) else ConfigArchiveIntegrator()
+        self.config_archive_integrator = config_archive_integrator if not pd.isna(
+            config_archive_integrator) else ConfigArchiveIntegrator()
         self.data_table = self.db_program_data.get_all_db_program() if not data_table is None else self.db_program_data.get_all_db_program()
 
         self.path_to_archive = self.config_archive_integrator.get_all_config_program().get('path to archive')
@@ -40,8 +41,12 @@ class GeneratedListArchive:
                             data_no_reversed.append(
                                 {
                                     'program': file_or_dir2
-                                    , 'version': os.path.join(self.path_to_archive, name_program, file_or_dir2,
-                                                              file_or_dir)
+                                    , 'version': os.path.join(
+                                        self.path_to_archive
+                                        , name_program
+                                        , file_or_dir2
+                                        , file_or_dir
+                                    )
                                     , "data": ", ".join(f.name for f in Path(str(full_file_or_dir)).iterdir())
                                     , "time": str(datetime.fromtimestamp(os.path.getctime(full_file_or_dir)))[:19]
                                     , '  back  ': ''
@@ -82,7 +87,6 @@ class GeneratedListArchive:
 
 
 if __name__ == '__main__':
-
     app = GeneratedListArchive(
         config_archive_integrator=None
         , path_to_tabel=r"C:\Users\yakovlev_nd\Desktop\Tests\ArchiveIntegrator\program — копия.xlsx"

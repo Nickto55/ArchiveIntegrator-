@@ -408,9 +408,7 @@ class ExcelReader:
     @staticmethod
     def is_empty(val: Any) -> bool:
         """Проверяет, является ли значение пустым."""
-        return (val is None or
-                (isinstance(val, str) and val.strip().lower() in ("", "nan", "n/a", "none", "-", "null")) or
-                (hasattr(pd, 'isna') and pd.isna(val)))
+        return (val is None or (isinstance(val, str) and val.strip().lower() in ("", "nan", "n/a", "none", "-", "null")) or (hasattr(pd, 'isna') and pd.isna(val)))
 
     def get_column_values(self, get_column: str,
                           foc_mode: bool = False,
